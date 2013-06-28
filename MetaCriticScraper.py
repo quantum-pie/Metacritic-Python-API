@@ -17,12 +17,15 @@ class MetaCriticScraper:
 					 'genre': '',
 					 'rating': ''
 					}
-					
-		metacritic_url = urllib2.urlopen(url)
-		self.game['url'] = metacritic_url.geturl()
-		html = metacritic_url.read()
-		self.soup = BeautifulSoup(html)
-		self.scrape()
+		
+		try:
+			metacritic_url = urllib2.urlopen(url)
+			self.game['url'] = metacritic_url.geturl()
+			html = metacritic_url.read()
+			self.soup = BeautifulSoup(html)
+			self.scrape()
+		except:
+			pass
 	
 	def scrape(self):
 		# Get Title and Platform. If site changes and we can't find the right divs or classes
