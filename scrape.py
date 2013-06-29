@@ -2,7 +2,7 @@ import argparse
 import urllib2
 import datetime
 import time
-import csv
+import ucsv as csv # Ugh. Python CSV module does not handle unicode. This extension works around that.
 import sys
 from bs4 import BeautifulSoup
 from MetaCriticScraper import MetaCriticScraper
@@ -66,7 +66,8 @@ def make_metacritic_url(vg_game_info):
 # You can also specific -h, --help at the command line 
 # to see which arguments are supported
 parser = argparse.ArgumentParser(description='VGChartz and MetaCritic Game Scraper.')
-parser.add_argument('-n', '--number', dest='max_games', type=int, default=0, help='Maximum number of games to scrape (0 to disable).')
+parser.add_argument('-m', '--max', dest='max_games', type=int, default=0, help='Maximum number of games to scrape (0 to disable).')
+parser.add_argument('-s', '--start', dest='start_game', type=int, default=1, help='Start scraping from game N (1 to start at beginning).')
 parser.add_argument('-w', '--wait', type=int, default=0, help='Number of seconds to wait before each request to MetaCritc (0 to disable).')
 
 args = parser.parse_args()
@@ -75,6 +76,7 @@ args = parser.parse_args()
 # This lets us break out of our loop
 games_available = True 
 
+current_game = 0  # Specific game we are ready to scrape. Used with start_game
 games_scraped = 0 # Count of how many games we have scraped so far
 vgchartz_page = 1 # Which VGChartz Page are we on
 
@@ -106,7 +108,12 @@ while games_available:
 	for row in rows:
 		vg_game_info = vgchartz_parse(row)
 		if vg_game_info:
-			print games_scraped+1, vg_game_info["name"]
+			# Increment current_game counter. If the current game we are about to scrape is less than the start game
+			# continue. This stops us from scraping it and contacting MetaCritic until we get to specific game we want
+			current_game += 1
+			if current_game < args.start_game:
+				continue
+			print current_game, vg_game_info["name"]
 			# VGChartz has many thousands of games in its database. A lot are old and have no sales figures. 
 			# If a game has 0 sales, we are done looking for games. This table is sorted by sales, so all other games will also have 0 sales.
 			if (vg_game_info["global_sales"] == "0.00"):
@@ -119,7 +126,6 @@ while games_available:
 			if (args.wait > 0):
 				time.sleep(args.wait) # Option to sleep before connecting so MetaCritic doesn't throttle/block us.
 			metacritic_scraper = MetaCriticScraper(metacritic_url)
-			
 			# Write everything to the CSV. MetaCritic data will be blank if we could not get it.
 			gamewriter.writerow([vg_game_info["name"], vg_game_info["platform"], vg_game_info["year"], vg_game_info["genre"], \
 								vg_game_info["publisher"], vg_game_info["na_sales"], vg_game_info["eu_sales"], vg_game_info["ja_sales"], \
