@@ -19,7 +19,7 @@ class MetaCriticScraper:
 					}
 		
 		try:
-			metacritic_url = urllib2.urlopen(url)
+			metacritic_url = urllib2.urlopen(url, timeout = 10)
 			self.game['url'] = metacritic_url.geturl()
 			html = metacritic_url.read()
 			self.soup = BeautifulSoup(html)
@@ -33,7 +33,7 @@ class MetaCriticScraper:
 		try:
 			product_title_div = self.soup.find("div", class_="product_title")
 			self.game['title'] = product_title_div.a.text.strip()
-			self.game['platform'] = product_title_div.span.a.text.strip()
+			#self.game['platform'] = product_title_div.span.a.text.strip()
 		except:
 			print "WARNING: Problem getting title and platform information"
 			pass
@@ -50,9 +50,10 @@ class MetaCriticScraper:
 		# Get critic information
 		try:
 			critics = self.soup.find("div", class_="details main_details")
-			self.game['critic_score'] = critics.find("span", class_="score_value").text.strip()
-			self.game['critic_outof'] = critics.find("span", class_="score_total").span.text.strip()
-			self.game['critic_count'] = critics.find("span", class_="count").a.span.text.strip()
+			self.game['critic_score'] = critics.find("span", itemprop="ratingValue").text.strip()
+			#self.game['critic_outof'] = critics.find("span", class_="score_total").span.text.strip()
+			self.game['critic_outof'] = "100"
+			self.game['critic_count'] = critics.find("span", itemprop="reviewCount").text.strip()
 		except:
 			print "WARNING: Problem getting critic score information"
 			pass
@@ -60,7 +61,8 @@ class MetaCriticScraper:
 		# Get user information
 		try:
 			users = self.soup.find("div", class_="details side_details")
-			self.game['user_score'] = users.find("span", class_="score_value").text.strip()
+			#self.game['user_score'] = users.find("span", class_="score_value").text.strip()
+			self.game['user_score'] = users.find("div", class_="metascore_w").text.strip()
 			raw_users_count = users.find("span", class_="count").a.text
 			user_count = ''
 			for c in raw_users_count:

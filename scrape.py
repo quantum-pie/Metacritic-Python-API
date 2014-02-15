@@ -28,8 +28,13 @@ metacritic_platform = {'PS3': 'playstation-3',
 					   'XB': 'xbox', # original xbox
 					   'GC': 'gamecube',
 					   'GBA': 'game-boy-advance',
-					   'DC': 'dreamcast'
+					   'DC': 'dreamcast',
+					   'PS4': 'playstation-4',
+					   'XOne': 'xbox-one'
 					   }
+
+# List of platforms that we will include in our final results. All others will be omitted.					   
+platforms_to_include = ['PS3', 'X360', 'WiiU', '3DS', 'PSV', 'iOS', 'Wii', 'PSP', 'PS4', 'XOne']
 
 # Parses a single row of game information from a VGChartz table.
 # Argument must be a BeautifulSoup'ed table row from VGChartz
@@ -71,7 +76,6 @@ parser = argparse.ArgumentParser(description='VGChartz and MetaCritic Game Scrap
 parser.add_argument('-m', '--max', dest='max_games', type=int, default=0, help='Maximum number of games to scrape (0 to disable).')
 parser.add_argument('-s', '--start', dest='start_game', type=int, default=1, help='Start scraping from game N (1 to start at beginning).')
 parser.add_argument('-w', '--wait', type=int, default=0, help='Number of seconds to wait before each request to MetaCritc (0 to disable).')
-
 args = parser.parse_args()
 
 # Do we have games available to scrape?
@@ -115,13 +119,20 @@ while games_available:
 			current_game += 1
 			if current_game < args.start_game:
 				continue
-			print current_game, vg_game_info["name"]
+			try:
+				print current_game, vg_game_info["name"]
+			except UnicodeEncodeError:
+				print current_game, vg_game_info["basename"]
 			# VGChartz has many thousands of games in its database. A lot are old and have no sales figures. 
 			# If a game has 0 sales, we are done looking for games. This table is sorted by sales, so all other games will also have 0 sales.
 			if (vg_game_info["global_sales"] == "0.00"):
 				print "No more games with sales figures. Ending."
 				games_available = False
 				break
+			
+			if (vg_game_info["platform"] not in platforms_to_include):
+				print "Game not from interesting platform. Skipping."
+				continue
 				
 			# Make MetaCritic URL				
 			metacritic_url = make_metacritic_url(vg_game_info)
