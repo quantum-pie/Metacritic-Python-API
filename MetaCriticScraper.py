@@ -19,9 +19,12 @@ class MetaCriticScraper:
 					}
 		
 		try:
-			metacritic_url = urllib2.urlopen(url, timeout = 10)
+			req = urllib2.Request(url)
+			req.add_unredirected_header('User-Agent','Mozilla/5.0')
+			metacritic_url = urllib2.urlopen(req, timeout = 10)
 			self.game['url'] = metacritic_url.geturl()
 			html = metacritic_url.read()
+			
 			self.soup = BeautifulSoup(html)
 			self.scrape()
 		except:
