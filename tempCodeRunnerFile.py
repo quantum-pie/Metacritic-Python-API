@@ -1,1 +1,0 @@
-soup.select("script[type=application/ld+json]")
