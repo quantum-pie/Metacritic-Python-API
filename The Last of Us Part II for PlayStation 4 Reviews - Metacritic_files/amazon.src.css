@@ -1,0 +1,135 @@
+#amzn-native-ad {
+  width: auto !important;
+}
+
+/* No wrap for product items*/
+.amzn-native-products-list {
+  display: flex !important;
+}
+
+.amzn-native-products-list > div.amzn-native-product:nth-child(4) {
+  margin-right: 0 !important;
+}
+
+div[id^="amzn-native-ad-"] {
+  font-family: Proxima Nova, sans-serif;
+  margin-bottom: 10px !important;
+}
+
+div[id^="amzn-native-ad-"] .amzn-native-header {
+  margin-bottom: 5px !important;
+  padding-bottom: 10px !important;
+}
+
+#movie-amazon-shopping-unit {
+  padding-top: 30px !important;
+}
+
+/* Movie page header styling*/
+#movie-amazon-shopping-unit #amzn-assoc-ad-59f8e9e4-5bed-4576-aacb-15693482f182 div[id^="amzn-native-ad-"] .amzn-native-header .amzn-native-header-text {
+  color: #424242 !important;
+  font-family: inherit !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  position: relative !important;
+}
+
+/* Movie page header line*/
+#movie-amazon-shopping-unit #amzn-assoc-ad-59f8e9e4-5bed-4576-aacb-15693482f182 div[id^="amzn-native-ad-"] .amzn-native-header .amzn-native-header-text:after {
+  background: #424242 !important;
+  border-radius: 5px !important;
+  content: '' !important;
+  display: block !important;
+  height: 3px !important;
+  margin-bottom: 10px !important;
+  margin-top: 5px !important;
+  width: 30px !important;
+}
+
+/* TV/Game/Music Show page header styling*/
+#tv-game-music-amazon-shopping-unit #amzn-assoc-ad-59f8e9e4-5bed-4576-aacb-15693482f182 div[id^="amzn-native-ad-"] .amzn-native-header .amzn-native-header-text {
+  color: #333333 !important;
+  font-family: Oswald, Proxima Nova, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.03rem !important;
+  text-transform:uppercase;
+}
+
+/* TV Show header line*/
+#tv-game-music-amazon-shopping-unit #amzn-assoc-ad-59f8e9e4-5bed-4576-aacb-15693482f182 div[id^="amzn-native-ad-"] .amzn-native-header .amzn-native-header-text:after {
+  border-bottom: 1px solid #ccc;
+  content: " " !important;
+  display: block !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product {
+  height: auto !important;
+  margin-left: 0 !important;
+  margin-right: 18px !important;
+  width: 175px !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-asin .amzn-native-product-title-container {
+  padding: 15px 0 !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-asin .amzn-native-product-title-container a {
+  color: #333333 !important;
+  font-family: Proxima Nova, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  line-height: 18px !important;
+  max-height: 36px !important;  
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-asin .amzn-native-product-title-container a:hover {
+  color: #fdd030 !important;
+  font-weight: bold !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-offer-price {
+  font-family: Proxima Nova, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, sans-serif !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-list-price {
+  font-family: Proxima Nova, sans-serif !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-rating {
+  display: none !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-image-container {
+  height: 146px !important;
+  padding: 0 !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-image-container:before {
+  background-color: #000000 !important;
+  background-color: rgba(0,0,0,.05) !important;
+  content: "" !important;
+  display: block !important;
+  height: 146px !important;
+  position: absolute !important ;
+  top: inherit !important;
+  width: 100% !important;
+  z-index: 1 !important;
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-products-list div.amzn-native-product .amzn-native-product-attr-container {
+  color: #e03800 !important;
+  margin: 0 !important;
+  position: relative !important;
+  width: 100% !important;
+
+}
+
+div[id^="amzn-native-ad-"] div.amzn-native-brand-button {
+  padding-top:20px !important;
+}
+
+.bestListing #amzn-native-ad {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

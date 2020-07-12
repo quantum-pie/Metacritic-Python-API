@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup
+import json
 from urllib.request import Request
 from urllib.request import urlopen
 
 class MetaCriticScraper:
 	def __init__(self, url):
 		self.game = {'url': '',
+					 'image': '',
 					 'title': '',
+					 'description': '',
 					 'platform': '',
 					 'publisher': '',
 					 'release_date': '',
@@ -25,11 +28,9 @@ class MetaCriticScraper:
 			metacritic_url = urlopen(req, timeout = 10)
 			self.game['url'] = metacritic_url.geturl()
 			html = metacritic_url.read()
-			print(html)
-			self.soup = BeautifulSoup(html)
+			self.soup = BeautifulSoup(html,'html.parser')
 			self.scrape()
-		except e:
-			print(e)
+		except:
 			pass
 	
 	def scrape(self):
@@ -54,12 +55,16 @@ class MetaCriticScraper:
 			
 		# Get critic information
 		try:
-			critics = self.soup.find("div", class_="details main_details")
-			self.game['critic_score'] = critics.find("span", itemprop="ratingValue").text.strip()
-			#self.game['critic_outof'] = critics.find("span", class_="score_total").span.text.strip()
-			self.game['critic_outof'] = "100"
-			self.game['critic_count'] = critics.find("span", itemprop="reviewCount").text.strip()
-		except:
+			res = self.soup.find("script",type="application/ld+json")
+			print(res.string)
+			js = json.loads(res.string)
+			self.game['image'] = js['image']
+			self.game['platform'] = js['gamePlatform']
+			self.game['description'] = js['description']
+			self.game['critic_score'] = js['aggregateRating']['ratingValue']
+			self.game['critic_count'] = js['aggregateRating']['ratingCount']
+		except Exception as e:
+			print(e)
 			print("WARNING: Problem getting critic score information")
 			pass
 			
