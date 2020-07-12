@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-import urllib2
+from urllib.request import Request
+from urllib.request import urlopen
 
 class MetaCriticScraper:
 	def __init__(self, url):
@@ -19,15 +20,16 @@ class MetaCriticScraper:
 					}
 		
 		try:
-			req = urllib2.Request(url)
+			req = Request(url)
 			req.add_unredirected_header('User-Agent','Mozilla/5.0')
-			metacritic_url = urllib2.urlopen(req, timeout = 10)
+			metacritic_url = urlopen(req, timeout = 10)
 			self.game['url'] = metacritic_url.geturl()
 			html = metacritic_url.read()
-			
+			print(html)
 			self.soup = BeautifulSoup(html)
 			self.scrape()
-		except:
+		except e:
+			print(e)
 			pass
 	
 	def scrape(self):
@@ -38,7 +40,7 @@ class MetaCriticScraper:
 			self.game['title'] = product_title_div.a.text.strip()
 			#self.game['platform'] = product_title_div.span.a.text.strip()
 		except:
-			print "WARNING: Problem getting title and platform information"
+			print("WARNING: Problem getting title and platform information")
 			pass
 			
 		# Get publisher and release date. 
@@ -47,7 +49,7 @@ class MetaCriticScraper:
 			self.game['release_date'] = self.soup.find("li", class_="summary_detail release_data").find("span", class_="data").text.strip()
 			#datetime.strptime(release_date.strip(), "%b %d, %Y")
 		except:
-			print "WARNING: Problem getting publisher and release date information"
+			print("WARNING: Problem getting publisher and release date information")
 			pass
 			
 		# Get critic information
@@ -58,7 +60,7 @@ class MetaCriticScraper:
 			self.game['critic_outof'] = "100"
 			self.game['critic_count'] = critics.find("span", itemprop="reviewCount").text.strip()
 		except:
-			print "WARNING: Problem getting critic score information"
+			print("WARNING: Problem getting critic score information")
 			pass
 			
 		# Get user information
@@ -72,7 +74,7 @@ class MetaCriticScraper:
 				if c.isdigit(): user_count += c
 			self.game['user_count'] = user_count.strip()
 		except:
-			print "WARNING: Problem getting user score information"
+			print("WARNING: Problem getting user score information")
 			pass
 				
 		# Get remaining information
@@ -82,5 +84,5 @@ class MetaCriticScraper:
 			self.game['genre'] = product_info.find("li", class_="summary_detail product_genre").find("span", class_="data").text.strip()
 			self.game['rating'] = product_info.find("li", class_="summary_detail product_rating").find("span", class_="data").text.strip()
 		except:
-			print "WARNING: Problem getting miscellaneous game information"
+			print("WARNING: Problem getting miscellaneous game information")
 			pass
