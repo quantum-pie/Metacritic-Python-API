@@ -29,7 +29,7 @@ print("Time to scrape: ", round(elapsed_time, 2), "secs")
 ```
 * Result   
 ```
-'URL: https://www.metacritic.com/game/pc/horizon-zero-dawn-complete-edition?ref=hp  
+URL: https://www.metacritic.com/game/pc/horizon-zero-dawn-complete-edition?ref=hp  
 Image: https://static.metacritic.com/images/products/games/8/5410c3d455b9c0341ef7a3023f0e29e4-98.jpg  
 Title: Horizon Zero Dawn: Complete Edition  
 Description: Experience Aloy’s legendary quest to unravel the mysteries of a future Earth ruled by Machines. An outcast from her tribe, the young hunter fights to uncover her past, discover her destiny… and stop a catastrophic threat to the future. Use devastating tactical attacks against your prey and explore a majestic open world in this action RPG.  
