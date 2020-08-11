@@ -12,7 +12,7 @@ from MetaCriticScraper import MetaCriticScraper
 * Code
 ```python
 urlForHorizonZeroDawn = 'https://www.metacritic.com/game/pc/horizon-zero-dawn-complete-edition?ref=hp'
-scraper = MetaCriticScraper(sys.argv[1])
+scraper = MetaCriticScraper(urlForHorizonZeroDawn)
 print("URL: " + scraper.game['url'])
 print("Image: " + scraper.game['image'])
 print("Title: " + scraper.game['title'])
