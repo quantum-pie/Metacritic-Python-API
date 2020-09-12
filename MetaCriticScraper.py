@@ -86,7 +86,8 @@ class MetaCriticScraper:
 		try:
 			product_info = self.soup.find("div", class_="section product_details").find("div", class_="details side_details")
 			self.game['developer'] = product_info.find("li", class_="summary_detail developer").find("span", class_="data").text.strip()
-			self.game['genre'] = product_info.find("li", class_="summary_detail product_genre").find("span", class_="data").text.strip()
+			for genre in product_info.find("li", class_="summary_detail product_genre").find_all("span", class_="data"):
+				self.game['genre'] += genre.text.strip() + '\n'
 			self.game['rating'] = product_info.find("li", class_="summary_detail product_rating").find("span", class_="data").text.strip()
 		except:
 			print("WARNING: Problem getting miscellaneous game information")
