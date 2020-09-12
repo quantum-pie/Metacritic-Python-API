@@ -56,7 +56,7 @@ class MetaCriticScraper:
 		# Get critic information
 		try:
 			res = self.soup.find("script",type="application/ld+json")
-			print(res.string)
+			#print(res.string)
 			js = json.loads(res.string)
 			self.game['image'] = js['image']
 			self.game['platform'] = js['gamePlatform']

@@ -119,10 +119,10 @@ while games_available:
 			current_game += 1
 			if current_game < args.start_game:
 				continue
-			try:
-				print current_game, vg_game_info["name"]
-			except UnicodeEncodeError:
-				print current_game, vg_game_info["basename"]
+			#try:
+			#	print current_game, vg_game_info["name"]
+			#except UnicodeEncodeError:
+			#	print current_game, vg_game_info["basename"]
 			# VGChartz has many thousands of games in its database. A lot are old and have no sales figures. 
 			# If a game has 0 sales, we are done looking for games. This table is sorted by sales, so all other games will also have 0 sales.
 			if (vg_game_info["global_sales"] == "0.00"):
